@@ -1,24 +1,31 @@
 var router = require('express').Router();
 var sequelize = require('../db');
-var Log = sequelize.import('../models/log');
+var Fund = sequelize.import('../models/fund');
 var User = sequelize.import('../models/user');
 var Definition = sequelize.import('../models/definition');
 
 router.post('/', function(req,res) {
 	//req has some body properties that have a username a pwd
-	var description = req.body.log.desc;
-	var result = req.body.log.result;
+	var newFund = req.body.fund.newFund;
+	var organization = req.body.fund.organization;
 	var user = req.user;
-	var definition = req.body.log.def;
+	var organizationType = req.body.fund.organizationType;
+	var goalAmount = req.body.fund.goalAmount;
+	var timeFrame = req.body.fund.timeFrame;
+	var purpose = req.body.fund.purpose;
 
 
 //Use our sequelize model to create log
-	Log
+	Fund
 		.create({
 			description,
-			result: result,
+			newFund: newFund,
 			owner: user.id,
-			def: definition
+			organization: organization,
+			organizationType: organizationType,
+			goalAmount: goalAmount,
+			timeFrame: timeFrame,
+			purpose: purpose
 		})
 		.then(
 			function createSuccess(log) {
@@ -32,7 +39,7 @@ router.post('/', function(req,res) {
 		
 	router.get('/', function(req,res) {
 		var userid = req.user.id;
-		Log
+		Fund
 		.findAll({
 			where: { owner: userid }
 		})
@@ -47,11 +54,11 @@ router.post('/', function(req,res) {
 		);
 	});
 
-	//This will retrieve one workout specified by the log id 
+	//This will retrieve one workout specified by the fund id 
 	router.get('/:id', function(req, res) {
 		var data = req.params.id;
 		//console.log(data); here for testing purposes
-		Log
+		Fund
 			.findOne({
 				where: { id: data }
 			}).then(
@@ -65,19 +72,24 @@ router.post('/', function(req,res) {
 		);
 	});
 
-	//This will return the data from the log that was updated
+	//This will return the data from the fund that was updated
 	router.put('/', function(req,res) {
-		var description =req.body.log.desc;
-		var result = req.body.log.result;
-		var data = req.body.log.id;
-		var definition = req.body.log.def;
+		var newFund =req.body.fund.newFund;
+		var organization = req.body.fund.organization;
+		var organizationType = req.body.fund.organizationType;
+		var goalAmount = req.body.fund.goalAmount;
+		var timeFrame = req.body.fund.timeFrame;
+		var purpose = req.body.fund.purpose;
 		console.log(req);
-		Log
+		Fund
 		.update(
 		{
-			description: description,
-			result: result,
-			def: definition
+			newFund: newFund,
+			organization: organization,
+			organizationType: organizationType,
+			goalAmount: goalAmount,
+			timeFrame: timeFrame,
+			purpose: purpose
 		},
 
 		{where: {id: data}}
@@ -93,8 +105,8 @@ router.post('/', function(req,res) {
 	});
 
 	router.delete('/', function(req, res) {
-		var data = req.body.log.id;
-		Log
+		var data = req.body.fund.id;
+		Fund
 			.destroy({
 				where: { id: data }
 			}).then(

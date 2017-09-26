@@ -1,34 +1,33 @@
 var router = require('express').Router();
-var sequelize = require('../db.js');
-var User = sequelize.import('../models/user');
 var bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
+var sequelize = require('../db.js');
+var User = sequelize.import('../models/user.js');
 
-
-router.post('/', function(req, res) { //this breaks the function into two sections, the comma splits the parts into two later on.
-		var username = req.body.user.username;
-		var pass = req.body.user.password;
-		//Need to create a user object and use sequelize to put that user into
-
-		User.create({
-			username: username,
-			passwordhash: bcrypt.hashSync(pass, 10)
-		}).then(
-		//Sequelize is going to return the object it created from db.
-
-			function createSuccess(user){
-			    var token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: 60*60*24});
-
-				res.json({
-						user: user,
-						message: 'created',
-						sessionToken: token
+router.post('/', function(req, res) {
+	User.findOne( { where: { email: req.body.user.email } } ).then(
+		function(user) {
+			if (user) {
+				bcrypt.compare(req.body.user.password, user.passwordhash, function(err, matches){
+					if (matches) {
+					   var token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: 60*60*24 });
+						res.json({
+							user: user,
+							message: "successfully authenticated",
+							sessionToken: token
+						});
+					}else {
+					res.status(500).send({ error: "failed to authenticate" });
+					}
 				});
-			},
-			function createError(err){
-				res.send(500, err.message);
+			} else {
+				res.status(500).send({ error: "failed to authenticate" });
 			}
-		);
-	});
+		},
+		function(err) {
+			res.json(err);
+		}
+	);
+});
 
 module.exports = router;

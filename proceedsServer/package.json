@@ -9,6 +9,7 @@
   "author": "Brett Newlund",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.15.5",
     "sequelize": "^4.11.1"
