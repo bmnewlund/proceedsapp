@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
 		newFund: DataTypes.STRING,
 		organization: DataTypes.STRING,
 		organizationType: DataTypes.STRING,
-		goalAmount: DataTypes.INTERGER,
+		goalAmount: DataTypes.INTEGER,
 		timeFrame: DataTypes.STRING,
 		purpose: DataTypes.STRING
 	});

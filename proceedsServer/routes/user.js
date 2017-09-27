@@ -1,23 +1,25 @@
 var router = require('express').Router();
 var sequelize = require('../db.js');
 var User = sequelize.import('../models/user');
-var bcrypt = require('bcryptjs');
+var bcrypt = require('bcrypt');
 var jwt = require('jsonwebtoken');
 
 
 router.post('/', function(req, res) {
-		var firstName = req.body.user.fistName;
+	// res.send(req.body.lastName)
+		var firstName = req.body.user.firstName;
 		var lastName = req.body.user.lastName;
 		var email = req.body.user.email;
 		var pass = req.body.user.password;
 		//Need to create a user object and use sequelize to put that user into
-console.log(pass)
+		
 		User.create({
-			username: username,
+			firstName: firstName,
+			lastName: lastName,
+			email: email,
 			passwordhash: bcrypt.hashSync(pass, 10)
 		}).then(
 		//Sequelize is going to return the object it created from db.
-
 			function createSuccess(user){
 			    var token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: 60*60*24});
 

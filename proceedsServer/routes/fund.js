@@ -2,7 +2,6 @@ var router = require('express').Router();
 var sequelize = require('../db');
 var Fund = sequelize.import('../models/fund');
 var User = sequelize.import('../models/user');
-var Definition = sequelize.import('../models/definition');
 
 router.post('/', function(req,res) {
 	//req has some body properties that have a username a pwd
@@ -15,7 +14,7 @@ router.post('/', function(req,res) {
 	var purpose = req.body.fund.purpose;
 
 
-//Use our sequelize model to create log
+//Use our sequelize model to create fund
 	Fund
 		.create({
 			description,
@@ -73,51 +72,51 @@ router.post('/', function(req,res) {
 	});
 
 	//This will return the data from the fund that was updated
-	router.put('/', function(req,res) {
-		var newFund =req.body.fund.newFund;
-		var organization = req.body.fund.organization;
-		var organizationType = req.body.fund.organizationType;
-		var goalAmount = req.body.fund.goalAmount;
-		var timeFrame = req.body.fund.timeFrame;
-		var purpose = req.body.fund.purpose;
-		console.log(req);
-		Fund
-		.update(
-		{
-			newFund: newFund,
-			organization: organization,
-			organizationType: organizationType,
-			goalAmount: goalAmount,
-			timeFrame: timeFrame,
-			purpose: purpose
-		},
+	// router.put('/', function(req,res) {
+	// 	var newFund =req.body.fund.newFund;
+	// 	var organization = req.body.fund.organization;
+	// 	var organizationType = req.body.fund.organizationType;
+	// 	var goalAmount = req.body.fund.goalAmount;
+	// 	var timeFrame = req.body.fund.timeFrame;
+	// 	var purpose = req.body.fund.purpose;
+	// 	console.log(req);
+	// 	Fund
+	// 	.update(
+	// 	{
+	// 		newFund: newFund,
+	// 		organization: organization,
+	// 		organizationType: organizationType,
+	// 		goalAmount: goalAmount,
+	// 		timeFrame: timeFrame,
+	// 		purpose: purpose
+	// 	},
 
-		{where: {id: data}}
-		).then(
-			function updateSuccess(updatedLog) {
-				res.json(updatedLog);
-			},
+	// 	{where: {id: data}}
+	// 	).then(
+	// 		function updateSuccess(updatedLog) {
+	// 			res.json(updatedLog);
+	// 		},
 
-			function updateError(err){
-				res.send(500, err.message);
-			}
-		)
-	});
+	// 		function updateError(err){
+	// 			res.send(500, err.message);
+	// 		}
+	// 	)
+	// });
 
-	router.delete('/', function(req, res) {
-		var data = req.body.fund.id;
-		Fund
-			.destroy({
-				where: { id: data }
-			}).then(
-				function deleteLogSuccess(data){
-					res.send("you removed a log");
-				},
-				function deleteLogError(err){
-					res.send(500, err.message);
-				}
-			);
-	});
+	// router.delete('/', function(req, res) {
+	// 	var data = req.body.fund.id;
+	// 	Fund
+	// 		.destroy({
+	// 			where: { id: data }
+	// 		}).then(
+	// 			function deleteLogSuccess(data){
+	// 				res.send("you removed a fundraiser");
+	// 			},
+	// 			function deleteLogError(err){
+	// 				res.send(500, err.message);
+	// 			}
+	// 		);
+	// });
 
 	module.exports = router;
 
