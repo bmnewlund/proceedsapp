@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import NavBarHeader from './Nav';
-import Signin from './auth/signin';
+import NavBarHeader from './nav';
+import SplashSignup from './splash';
+
 
 
   export default class App extends Component {
@@ -8,9 +9,9 @@ import Signin from './auth/signin';
           return (
             <div>
               <NavBarHeader />
-              
-              {this.props.children}
-              
+              <SplashSignup />
+
+            
             </div>
           );
       }
