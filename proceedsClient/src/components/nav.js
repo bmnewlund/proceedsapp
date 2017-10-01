@@ -24,4 +24,10 @@ class NavBarHeader extends Component {
 	}
 }
 
-export default NavBarHeader;
+function mapStateToProps(state) {
+	return {
+		authenticated: state.auth.authenticated
+	};
+}
+
+export default connect(mapStateToProps)(NavBarHeader);

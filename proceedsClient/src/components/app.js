@@ -10,7 +10,7 @@ import SplashSignup from './splash';
             <div>
               <NavBarHeader />
               <SplashSignup />
-
+            {this.props.children}
             
             </div>
           );
