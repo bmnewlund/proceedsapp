@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
-import { createPost } from '../../actions/index';
+import { createFund } from '../../actions/index';
 import { Link } from 'react-router';
 
 
@@ -16,22 +16,29 @@ class Fundraiser extends Component {
 			<form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 				<h3>Create New Fundraiser</h3>
 				
-				
 				<fieldset className="form-group">
-					<label>Title</label>
-					<input type="text" className="form-control" {...title} />
+					<label>New Fundraiser</label>
+					<input type="text" className="form-control" {...newFundraiser} />
 				</fieldset>
 				<fieldset className="form-group">
-					<label>Category</label>
-					<input type="text" className="form-control" {...topic} />
+					<label>Organization</label>
+					<input type="text" className="form-control" {...organization} />
 				</fieldset>
 				<fieldset className="form-group">
-					<label>URL</label>
-					<input type="text" className="form-control" {...url} />
+					<label>Organization Type</label>
+					<input type="text" className="form-control" {...organizationType} />
 				</fieldset>
 				<fieldset className="form-group">
-					<label>Content</label>
-					<textarea type="text" rows="8" className="form-control text" {...content} />
+					<label>Goal Amount</label>
+					<input type="text" className="form-control" {...goalAmount} />
+				</fieldset>
+				<fieldset className="form-group">
+					<label>Time Frame</label>
+					<input type="text" className="form-control" {...timeFrame} />
+				</fieldset>
+				<fieldset className="form-group">
+					<label>Purpose</label>
+					<textarea type="text" rows="8" className="form-control text" {...purpose} />
 				</fieldset>
 
 				<button type="submit" className="btn btn-primary">Submit</button>
@@ -49,5 +56,5 @@ function mapStateToProps(state) {
 
 export default reduxForm({
 	form: 'ListsNewForm',
-	fields: ['title', 'topic', 'url', 'content']
+	fields: [ 'newFundraiser, organization, organizationType, goalAmount, timeFrame, purpose' ]
 }, mapStateToProps, { createFund })(Fundraiser);
