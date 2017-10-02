@@ -9,7 +9,6 @@ import SplashSignup from './splash';
           return (
             <div>
               <NavBarHeader />
-              <SplashSignup />
             {this.props.children}
             
             </div>
