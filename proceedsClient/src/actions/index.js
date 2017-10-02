@@ -4,7 +4,7 @@ import {
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
-  CREATE_FUNDS
+  CREATE_FUND
   } from './types';
 
   import authReducer from '../reducers/auth_reducer';
@@ -22,7 +22,7 @@ import {
         
             dispatch({ type: AUTH_USER });
             localStorage.setItem('token', response.data.token);
-            browserHistory.push('/newfundraiser');
+            browserHistory.push('/new_fundraiser');
             
              })
           .catch(response =>  dispatch(authError("There was a something wrong with your request.")));
@@ -44,7 +44,7 @@ import {
                   
                   //update the token
                   localStorage.setItem('token', response.data.token);
-                  browserHistory.push('/newfundraiser');
+                  browserHistory.push('/new_fundraiser');
               })
               .catch(response => dispatch(authError(response.data.error)));
           }
@@ -55,10 +55,10 @@ import {
         axios.post(`${ROOT_URL}/newfund`, { props }, config )
         .then(request => {
             dispatch({
-              type: CREATE_FUNDS,
+              type: CREATE_FUND,
               payload: request
             })
-          browserHistory.push('/funds');
+          // browserHistory.push('/funds');
         });
       }
     }
