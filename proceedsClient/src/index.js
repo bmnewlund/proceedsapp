@@ -7,8 +7,7 @@ import reduxThunk from 'redux-thunk';
 
 import App from './components/app';
 import Splash from './components/splash';
-import Signin from './components/auth/signin';
-import Signup from './components/auth/signup';
+import User from './components/user';
 import RequireAuth from './components/auth/require_auth';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
@@ -29,8 +28,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
         <Route path="/" component={App}>
             <Route path="home" component={Splash} />     
-            <Route path="user" component={Signup} />
-            <Route path="user" component={Signin} />
+            <Route path="user" component={User} />
         </Route>
       </Router>
   </Provider>
