@@ -18,8 +18,10 @@ class NavBarHeader extends Component {
 			      <Navbar.Toggle />
 			    </Navbar.Header>
 			      <Nav pullRight >
-			        <Button>SignUp</Button>
-			        <Button>SignIn</Button>
+			      	<NavItem>
+				        <Button>SignUp</Button>
+				        <Button>SignIn</Button>
+				    </NavItem>
 			      </Nav>			 
 				</Navbar>
 			</div>

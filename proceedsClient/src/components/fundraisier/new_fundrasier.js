@@ -16,6 +16,7 @@ class Fundraiser extends Component {
 			<form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 				<h3>Create New Fundraiser</h3>
 				
+				
 				<fieldset className="form-group">
 					<label>Title</label>
 					<input type="text" className="form-control" {...title} />

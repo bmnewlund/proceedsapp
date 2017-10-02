@@ -9,7 +9,7 @@ import {
 
   import authReducer from '../reducers/auth_reducer';
 
-  const ROOT_URL = 'http://localhost:3000';
+  const ROOT_URL = 'http://localhost:3000/api';
 
   var config = {
        headers: { authorization: localStorage.getItem('token') }
@@ -17,7 +17,7 @@ import {
 
     export function signinUser({ email, password }){
       return function(dispatch){
-        axios.post(`${ROOT_URL}/signin`, {email, password})
+        axios.post(`${ROOT_URL}/login`, {email, password})
           .then(response => {
         
             dispatch({ type: AUTH_USER });

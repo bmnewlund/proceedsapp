@@ -29,6 +29,7 @@ ReactDOM.render(
         <Route path="/" component={App}>
             <Route path="home" component={Splash} />     
             <Route path="user" component={User} />
+            <Route path=
         </Route>
       </Router>
   </Provider>

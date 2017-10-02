@@ -25,12 +25,10 @@ class Signup extends Component {
 				<fieldset className="form-group">
 					<label>First Name</label>
 					<input className="form-control" {...firstName} />
-					{email.touched && email.error && <div className="error">{email.error}</div>}
 				</fieldset>
 				<fieldset className="form-group">
 					<label>Last Name</label>
 					<input className="form-control" {...lastName} />
-					{email.touched && email.error && <div className="error">{email.error}</div>}
 				</fieldset>
 				<fieldset className="form-group">
 					<label>Email</label>
