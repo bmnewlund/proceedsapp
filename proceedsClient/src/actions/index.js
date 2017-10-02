@@ -9,7 +9,7 @@ import {
 
   import authReducer from '../reducers/auth_reducer';
 
-  const ROOT_URL = 'http://localhost:3000';
+  const ROOT_URL = 'http://localhost:3000/api';
 
   var config = {
        headers: { authorization: localStorage.getItem('token') }
@@ -17,12 +17,12 @@ import {
 
     export function signinUser({ email, password }){
       return function(dispatch){
-        axios.post(`${ROOT_URL}/signin`, {email, password})
+        axios.post(`${ROOT_URL}/login`, {email, password})
           .then(response => {
         
             dispatch({ type: AUTH_USER });
             localStorage.setItem('token', response.data.token);
-            browserHistory.push('/newitem');
+            browserHistory.push('/newfundraiser');
             
              })
           .catch(response =>  dispatch(authError("There was a something wrong with your request.")));
@@ -38,13 +38,13 @@ import {
     export function signupUser({ email, password }) {
           return function(dispatch) {
             // Submit email/password to the server
-            axios.post(`${ROOT_URL}/signup`, { email, password })
+            axios.post(`${ROOT_URL}/user`, { email, password })
               .then(response => {
                 dispatch({type: AUTH_USER});
                   
                   //update the token
                   localStorage.setItem('token', response.data.token);
-                  browserHistory.push('/newitem');
+                  browserHistory.push('/newfundraiser');
               })
               .catch(response => dispatch(authError(response.data.error)));
           }

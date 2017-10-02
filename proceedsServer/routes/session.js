@@ -5,10 +5,10 @@ var sequelize = require('../db.js');
 var User = sequelize.import('../models/user.js');
 
 router.post('/', function(req, res) {
-	User.findOne( { where: { email: req.body.user.email } } ).then(
+	User.findOne( { where: { email: req.body.email } } ).then(
 		function(user) {
 			if (user) {
-				bcrypt.compare(req.body.user.password, user.passwordhash, function(err, matches){
+				bcrypt.compare(req.body.password, user.passwordhash, function(err, matches){
 					if (matches) {
 					   var token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: 60*60*24 });
 						res.json({

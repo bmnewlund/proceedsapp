@@ -3,11 +3,13 @@ import {Navbar, Nav, NavItem, NavDropdown, DropdownButton, MenuItem, Collapsible
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
+
 class NavBarHeader extends Component {
 
 
 	render() {
 		return (
+			<div>
 			  <Navbar inverse collapseOnSelect>
 			    <Navbar.Header>
 			      <Navbar.Brand>
@@ -16,10 +18,13 @@ class NavBarHeader extends Component {
 			      <Navbar.Toggle />
 			    </Navbar.Header>
 			      <Nav pullRight >
-			        <Button>SignUp</Button>
-			        <Button>SignIn</Button>
+			      	<NavItem>
+				        <Button>SignUp</Button>
+				        <Button>SignIn</Button>
+				    </NavItem>
 			      </Nav>			 
 				</Navbar>
+			</div>
 		);
 	}
 }
