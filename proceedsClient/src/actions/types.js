@@ -3,4 +3,5 @@ export const UNAUTH_USER = 'unauth_user';
 export const AUTH_ERROR = 'auth_error';
 export const FETCH_MESSAGE = 'fetch_message';
 
-export const CREATE_FUNDS = "CREATE_FUNDS";
+export const FETCH_FUNDS = 'FETCH_FUNDS';
+export const CREATE_FUNDS = 'CREATE_FUNDS';

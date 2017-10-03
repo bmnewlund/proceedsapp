@@ -9,6 +9,7 @@ import App from './components/app';
 import Splash from './components/splash';
 import User from './components/user';
 import Fundraiser from './components/fundraiser/new_fundraiser';
+import Fundraisers from './components/fundraiser/fundraisers';
 import RequireAuth from './components/auth/require_auth';
 import reducers from './reducers';
 import { AUTH_USER } from './actions/types';
@@ -31,6 +32,7 @@ ReactDOM.render(
             <Route path="home" component={Splash} />     
             <Route path="user" component={User} />
             <Route path="new_fundraiser" component={Fundraiser} />
+            <Route path="fundraisers" component={Fundraisers} />
         </Route>
       </Router>
   </Provider>

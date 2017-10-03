@@ -4,14 +4,15 @@ var Fund = sequelize.import('../models/fund');
 var User = sequelize.import('../models/user');
 
 router.post('/', function(req,res) {
+	console.log(req.body);
 	//req has some body properties that have a username a pwd
-	var newFund = req.body.newFund;
-	var organization = req.body.organization;
+	var newFund = req.body.props.newFundraiser;
+	var organization = req.body.props.organization;
 	var user = req.user;
-	var organizationType = req.body.organizationType;
-	var goalAmount = req.body.goalAmount;
-	var timeFrame = req.body.timeFrame;
-	var purpose = req.body.purpose;
+	var organizationType = req.body.props.organizationType;
+	var goalAmount = req.body.props.goalAmount
+	var purpose = req.body.props.purpose;
+	var timeFrame = req.body.props.timeFrame;
 
 
 //Use our sequelize model to create fund
@@ -34,7 +35,7 @@ router.post('/', function(req,res) {
 				}
 			);
 	});
-		
+
 	router.get('/', function(req,res) {
 		var userid = req.user.id;
 		Fund

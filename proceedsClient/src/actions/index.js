@@ -4,7 +4,9 @@ import {
   AUTH_USER,
   UNAUTH_USER,
   AUTH_ERROR,
-  CREATE_FUND
+  CREATE_FUNDS, 
+  DELETE_FUND
+
   } from './types';
 
   import authReducer from '../reducers/auth_reducer';
@@ -19,9 +21,9 @@ import {
       return function(dispatch){
         axios.post(`${ROOT_URL}/login`, {email, password})
           .then(response => {
-        
+        console.log(response);
             dispatch({ type: AUTH_USER });
-            localStorage.setItem('token', response.data.token);
+            localStorage.setItem('token', response.data.sessionToken);
             browserHistory.push('/new_fundraiser');
             
              })
@@ -43,7 +45,7 @@ import {
                 dispatch({type: AUTH_USER});
                   
                   //update the token
-                  localStorage.setItem('token', response.data.token);
+                  localStorage.setItem('token', response.data.sessionToken);
                   browserHistory.push('/new_fundraiser');
               })
               .catch(response => dispatch(authError(response.data.error)));
@@ -51,15 +53,49 @@ import {
         }
 
     export function createFund(props) {
+      // console.log(props);
       return function(dispatch){
-        axios.post(`${ROOT_URL}/newfund`, { props }, config )
+        axios.post(`${ROOT_URL}/fund`, { props }, {
+       headers: { authorization: localStorage.getItem('token') }
+    } )
         .then(request => {
             dispatch({
-              type: CREATE_FUND,
+              type: CREATE_FUNDS,
               payload: request
             })
-          browserHistory.push('/funds');
+          browserHistory.push('/fundraisers');
         });
       }
     }
 
+    export function fetchFunds() {
+      return function(dispatch) {
+        axios.get(`{ROOT_URL}/fund`, config)
+          .then( (response) => {
+            console.log("Response", response)
+            dispatch({
+              type: FETCH_FUNDS,
+              payload: response
+            });
+          });
+      }
+    }
+    export function authError(error) {
+      return {
+        type: AUTH_ERROR,
+        payload: error
+      };
+    }
+
+    export function deleteFund(id) {
+      return function(dispatch) {
+        axios.delete(`${ROOT_URL}/funds/${id}`, config)
+          .then( (response) => {
+            dispatch({
+              type: DELETE_FUND,
+              payload: response
+            });
+            browserHistory.push('/funds');
+          });
+  }
+}

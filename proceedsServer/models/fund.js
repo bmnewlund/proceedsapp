@@ -6,6 +6,7 @@ module.exports = function(sequelize, DataTypes) {
 		organizationType: DataTypes.STRING,
 		goalAmount: DataTypes.INTEGER,
 		timeFrame: DataTypes.STRING,
-		purpose: DataTypes.STRING
+		purpose: DataTypes.STRING,
+		owner: DataTypes.INTEGER
 	});
 };

@@ -5,6 +5,7 @@ var sequelize = require('../db.js');
 var User = sequelize.import('../models/user.js');
 
 router.post('/', function(req, res) {
+	console.log(req.body);
 	User.findOne( { where: { email: req.body.email } } ).then(
 		function(user) {
 			if (user) {

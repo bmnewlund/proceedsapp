@@ -6,8 +6,9 @@ import { Link } from 'react-router';
 
 class Fundraiser extends Component {
 	handleFormSubmit(formProps){
+		console.log(formProps);
 	  //call action creator to sign up the user
-	    this.props.createFundraiser(formProps);
+	    this.props.createFund(formProps);
 	}
 
 	render() {
@@ -30,7 +31,7 @@ class Fundraiser extends Component {
 				</fieldset>
 				<fieldset className="form-group">
 					<label>Goal Amount</label>
-					<input type="text" className="form-control" {...goalAmount} />
+					<input type="number" className="form-control" {...goalAmount} />
 				</fieldset>
 				<fieldset className="form-group">
 					<label>Time Frame</label>
@@ -55,6 +56,6 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-	form: 'ListsNewForm',
-	fields: [ 'newFundraiser, organization, organizationType, goalAmount, timeFrame, purpose' ]
+	form: 'FundsNewForm',
+	fields: [ 'newFundraiser', 'organization', 'organizationType', 'goalAmount', 'timeFrame', 'purpose' ]
 }, mapStateToProps, { createFund })(Fundraiser);
