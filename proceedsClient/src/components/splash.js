@@ -12,7 +12,7 @@ class SplashSignup extends Component {
 			  			<Jumbotron>
 			    			<h1>Welcome to Proceeds!</h1>
 			    			<p>A fundraising site for whatever your purpose!</p>
-			    			<p><Button bsStyle="primary">SignUp!</Button></p>
+			    			<p><Button bsStyle="primary" href="/user">SignUp!</Button></p>
 			  			</Jumbotron>
 				);
 			}

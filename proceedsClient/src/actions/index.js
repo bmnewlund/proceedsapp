@@ -58,7 +58,7 @@ import {
               type: CREATE_FUND,
               payload: request
             })
-          // browserHistory.push('/funds');
+          browserHistory.push('/funds');
         });
       }
     }
