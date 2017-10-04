@@ -5,7 +5,8 @@ import {
   UNAUTH_USER,
   AUTH_ERROR,
   CREATE_FUNDS, 
-  DELETE_FUND
+  DELETE_FUND,
+  FETCH_FUNDS
 
   } from './types';
 
@@ -70,7 +71,7 @@ import {
 
     export function fetchFunds() {
       return function(dispatch) {
-        axios.get(`{ROOT_URL}/fund`, config)
+        axios.get(`${ROOT_URL}/fund`, config)
           .then( (response) => {
             console.log("Response", response)
             dispatch({

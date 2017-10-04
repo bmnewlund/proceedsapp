@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
 import { ListGroupItem, ListGroup, Button  } from 'react-bootstrap';
-import { deleteFund } from '../../actions/index';
+import { deleteFund, fetchFunds } from '../../actions/index';
 // import { fetchFund, deleteFund } from '../../actions/index';
 import axios from 'axios';
 
@@ -12,34 +12,36 @@ const config = {
    headers: { authorization: localStorage.getItem('token') }
 }
 
+
 class Fundraisers extends Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			fund : {}
-		}
-		axios.get(ROOT_URL + '/api/fund', config)
-			.then( (response) => {
-				console.log("Response", response)
-				this.setState({
-					fund: response.data
-				})
-				this.renderItems();
-
-			});
-			console.log(this.state)
 	}
 
-	onDeleteClick() {
-		this.props.deleteFund(this.params.id);
-		console.log(this.state.fund)
+	componentWillMount() {
+		console.log("1")
+		this.props.fetchFunds();
 	}
 
+	onDeleteClick(e) {
+		console.log(e.target.id)
+		console.log(this.props)
+		this.props.deleteFund(e.target.id); 
+		this.props.fetchFunds()
+	}
+
+
+	componentWillUnmount() {
+		console.log("3");
+    	onDeleteClick();
+  	}
 	renderItems() {
-			console.log(this.state)
-		if (Object.keys(this.state.fund).length !== 0) {
-			return this.state.fund.map((fund) => {
+			// console.log(this.state)
+			console.log(this.props)
+			console.log("2")
+		if(this.props.funds !== undefined) {
+			return this.props.funds.map((fund) => {
 				return (
 					<ListGroup>
 					 	<ListGroupItem>Fundraiser: {fund.newFund}</ListGroupItem>
@@ -48,7 +50,7 @@ class Fundraisers extends Component {
 					 	<ListGroupItem>Goal Amount: {fund.goalAmount}</ListGroupItem>
 					 	<ListGroupItem>Time Frame: {fund.timeFrame}</ListGroupItem>
 					 	<ListGroupItem>Purpose: {fund.purpose}</ListGroupItem>
-					 	<button className="btn btn-danger" onClick={this.onDeleteClick.bind(this)}>
+					 	<button className="btn btn-danger" id={fund.id} onClick={this.onDeleteClick.bind(this)}>
 					 	Delete Fundraiser
 					 	</button>
 				 	</ListGroup>
@@ -60,7 +62,6 @@ class Fundraisers extends Component {
 
 	render() {
 		// const funds = this.props.funds;
-		console.log(this.state.fund)
 		return (
 			<div>
 			{this.renderItems()}
@@ -69,10 +70,10 @@ class Fundraisers extends Component {
 	}
 }
 
-function mapStateToProps(state) {
-	return { funds: state.fund.all };
+function mapStateToProps(state) { console.log(state.fund.deleted)
+	return { funddeleted: state.fund.deleted, funds: state.fund.funds };
 }
 
-export default connect(mapStateToProps, { deleteFund })(Fundraisers);
+export default connect(mapStateToProps, { deleteFund, fetchFunds })(Fundraisers);
 
  // { fetchFund, deleteFund }
