@@ -29,13 +29,16 @@ class Fundraisers extends Component {
 		console.log(this.props)
 		this.props.deleteFund(e.target.id); 
 		this.props.fetchFunds()
+
+	}
+	componentDidMount(){
+		console.log("3")
 	}
 
-
-	componentWillUnmount() {
-		console.log("3");
-    	onDeleteClick();
-  	}
+	// componentWillUnmount() {
+	// 	console.log("4");
+ //    	onDeleteClick();
+ //  	}
 	renderItems() {
 			// console.log(this.state)
 			console.log(this.props)
