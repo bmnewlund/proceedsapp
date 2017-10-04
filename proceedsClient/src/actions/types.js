@@ -5,3 +5,4 @@ export const FETCH_MESSAGE = 'fetch_message';
 
 export const FETCH_FUNDS = 'FETCH_FUNDS';
 export const CREATE_FUNDS = 'CREATE_FUNDS';
+export const DELETE_FUND = 'DELETE_FUND';

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, browserHistory } from 'react-router';
-import { ListGroupItem, ListGroup } from 'react-bootstrap';
+import { ListGroupItem, ListGroup, Button  } from 'react-bootstrap';
+import { deleteFund } from '../../actions/index';
 // import { fetchFund, deleteFund } from '../../actions/index';
 import axios from 'axios';
 
@@ -18,37 +19,43 @@ class Fundraisers extends Component {
 		this.state = {
 			fund : {}
 		}
-	}
-	componentWillMount() {
-
-		// this.props.fetchFund(this.props.params.id);
-		axios.get(ROOT_URL + '/fund', config)
+		axios.get(ROOT_URL + '/api/fund', config)
 			.then( (response) => {
 				console.log("Response", response)
 				this.setState({
 					fund: response.data
 				})
+				this.renderItems();
+
 			});
+			console.log(this.state)
 	}
 
 	onDeleteClick() {
-		this.props.deleteFund(this.props.params.id);
+		this.props.deleteFund(this.params.id);
+		console.log(this.state.fund)
 	}
 
-		renderItems() {
-		return this.state.fund.map((fund) => {
-
-			return (
-				<ListGroup>
-				 	<ListGroupItem>Fundraiser: {this.state.fund.newFundraiser}</ListGroupItem>
-				 	<ListGroupItem>Organization: {this.state.fund.organization}</ListGroupItem>
-				 	<ListGroupItem>Organization Type: {this.state.fund.organizationType}</ListGroupItem>
-				 	<ListGroupItem>Goal Amount: {this.state.fund.goalAmount}</ListGroupItem>
-				 	<ListGroupItem>Time Frame: {this.state.und.timeFrame}</ListGroupItem>
-				 	<ListGroupItem>Purpose: {this.state.fund.purpose}</ListGroupItem>
-			 	</ListGroup>
-			);
-		});
+	renderItems() {
+			console.log(this.state)
+		if (Object.keys(this.state.fund).length !== 0) {
+			return this.state.fund.map((fund) => {
+				return (
+					<ListGroup>
+					 	<ListGroupItem>Fundraiser: {fund.newFund}</ListGroupItem>
+					 	<ListGroupItem>Organization: {fund.organization}</ListGroupItem>
+					 	<ListGroupItem>Organization Type: {fund.organizationType}</ListGroupItem>
+					 	<ListGroupItem>Goal Amount: {fund.goalAmount}</ListGroupItem>
+					 	<ListGroupItem>Time Frame: {fund.timeFrame}</ListGroupItem>
+					 	<ListGroupItem>Purpose: {fund.purpose}</ListGroupItem>
+					 	<button className="btn btn-danger" onClick={this.onDeleteClick.bind(this)}>
+					 	Delete Fundraiser
+					 	</button>
+				 	</ListGroup>
+				);
+			});
+		}
+		else {return ""}
 	}
 
 	render() {
@@ -56,7 +63,7 @@ class Fundraisers extends Component {
 		console.log(this.state.fund)
 		return (
 			<div>
-				{this.renderItems()}
+			{this.renderItems()}
 			</div>
 		);
 	}
@@ -66,6 +73,6 @@ function mapStateToProps(state) {
 	return { funds: state.fund.all };
 }
 
-export default connect(mapStateToProps)(Fundraisers);
+export default connect(mapStateToProps, { deleteFund })(Fundraisers);
 
  // { fetchFund, deleteFund }

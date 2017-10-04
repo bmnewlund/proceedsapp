@@ -71,7 +71,20 @@ router.post('/', function(req,res) {
 		);
 	});
 
-
+	router.delete('/:id', function(req, res) {
+		var data = req.params.id;
+		Fund
+			.destroy({
+				where: { id: data }
+			}).then(
+				function deleteLogSuccess(data){
+					res.send("you removed a log");
+				},
+				function deleteLogError(err){
+					res.send(500, err.message);
+				}
+			);
+	});
 
 	module.exports = router;
 

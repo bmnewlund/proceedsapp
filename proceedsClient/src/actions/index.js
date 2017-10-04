@@ -89,13 +89,12 @@ import {
 
     export function deleteFund(id) {
       return function(dispatch) {
-        axios.delete(`${ROOT_URL}/funds/${id}`, config)
+        axios.delete(`${ROOT_URL}/fund/${id}`, config)
           .then( (response) => {
             dispatch({
               type: DELETE_FUND,
               payload: response
             });
-            browserHistory.push('/funds');
           });
   }
 }
